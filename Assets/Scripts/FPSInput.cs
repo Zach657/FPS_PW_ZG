@@ -4,7 +4,7 @@ using System.Collections;
 public class FPSInput : MonoBehaviour
 {
     public float speed = 6.0f;
-    public float gravity = -.8f;
+    public float gravity = -6f;
 
     private CharacterController charController;
 
@@ -18,7 +18,7 @@ public class FPSInput : MonoBehaviour
         float deltaX = Input.GetAxis("Horizontal") * speed;
         float deltaZ = Input.GetAxis("Vertical") * speed;
         float vertSpeed = 0;
-        float jumpSpeed = 100f;
+        float jumpSpeed = 200f;
         if (charController.isGrounded)
         {
             if (Input.GetButtonDown("Jump"))
