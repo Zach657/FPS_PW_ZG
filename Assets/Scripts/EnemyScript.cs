@@ -3,16 +3,18 @@ using System.Collections;
 
 public class EnemyScript : MonoBehaviour {
 	private int health = 1;
-	private float xVel = 1f;
-	private float zVel = 1f;
+	private float xVel = .1f;
+	private float zVel = .1f;
 	// Use this for initialization
 	void Start () {
 		
 	}
 	
-	// Update is called once per frame
-	void Update () {
-
+	// Responsible for enemy movement
+	void FixedUpdate () {
+		Vector3 updatePos = gameObject.transform.position;
+		updatePos.x = updatePos.x + xVel;
+		updatePos.y = updatePos.z + zVel;
 	}
 
 	void OnCollisionEnter(Collision coll){
@@ -20,6 +22,9 @@ public class EnemyScript : MonoBehaviour {
 		// This determines whether or not the enemy was hit by a bullet
 		if (collidedWith.tag == "Bullet") {
 			health = health - 1;
+			if (health == 0) {
+				
+			}
 		}
 	}
 }
