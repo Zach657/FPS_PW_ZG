@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+ * @author James Greenwell
+*/
+
 public class RayShooter : MonoBehaviour
 {
 

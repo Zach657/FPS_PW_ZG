@@ -1,6 +1,8 @@
 ﻿using UnityEngine;
 using System.Collections;
-
+/*
+ * @ author Peter Wages
+*/
 public class EndGameController : MonoBehaviour {
 
 	void OnCollisionEnter(Collision collision)

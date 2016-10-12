@@ -1,6 +1,10 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+ * @author Peter Wages
+*/
+
 public class FPSInput : MonoBehaviour
 {
     public float speed = 6.0f;

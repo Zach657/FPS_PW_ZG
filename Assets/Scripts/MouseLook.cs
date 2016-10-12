@@ -1,6 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
+/*
+ * @author Peter Wages
+ * Stolen from Shannons class exercise and sold on the black market
+*/
+
 public class MouseLook : MonoBehaviour {
 
     public enum RotationAxes
