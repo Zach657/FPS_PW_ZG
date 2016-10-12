@@ -30,7 +30,7 @@ public class PlayerController : MonoBehaviour {
     void OnCollisionEnter(Collision collision)
     {
         GameObject collidedWith = collision.gameObject;
-        if (collidedWith.tag == "Player")
+        if (collidedWith.tag == "Bullet")
         {
             PlayerHit();
         }
