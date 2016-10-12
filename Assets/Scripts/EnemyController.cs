@@ -7,7 +7,7 @@ using System.Collections;
  * This class controls the enemy interactions with the environment, including interactions with the player
 */ 
 
-public class EnemyScript : MonoBehaviour {
+public class EnemyController : MonoBehaviour {
 	[SerializeField] private int health = 1;
 	[SerializeField] private float xVel = 0;
 	[SerializeField] private float zVel = 0;
