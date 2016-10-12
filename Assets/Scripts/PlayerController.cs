@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class PlayerController : MonoBehaviour {
     private int health = 100;
     private int damagePerHit = 25;
+    private int pointsLostPerHit = 100;
     private FPSController controller;
     [SerializeField]
     private Slider healthBar;
@@ -21,6 +22,7 @@ public class PlayerController : MonoBehaviour {
     {
         health = health - damagePerHit;
         healthBar.value = health;
+        controller.UpdateScore(pointsLostPerHit);
         if (health <= 0)
         {
             controller.TriggerLoss();
