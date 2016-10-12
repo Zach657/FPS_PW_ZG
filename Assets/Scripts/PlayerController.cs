@@ -26,4 +26,13 @@ public class PlayerController : MonoBehaviour {
             controller.TriggerLoss();
         }
     }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        GameObject collidedWith = collision.gameObject;
+        if (collidedWith.tag == "Player")
+        {
+            PlayerHit();
+        }
+    }
 }

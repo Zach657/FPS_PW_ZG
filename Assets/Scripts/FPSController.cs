@@ -9,11 +9,12 @@ using UnityEngine.UI;
 public class FPSController : MonoBehaviour {
 
     [SerializeField]
-    private Text scoreLabel, highScoreLabel;
+    private Text scoreLabel, highScoreLabel, winLoseMessageText;
     [SerializeField]
     private GameObject levelCompletedMessage;
 
-    private string levelName = "Scene_0";
+    private string levelName = "_Scene_0";
+    private string loseMessage = "An error in Android's runtime has caused the System.main to crash. Please restart now.";
     private int score = 0;
     private string highScorePlayerPrefKey = "FPSPSWJZG-Highscore";
     private int highScore = 0;
@@ -21,8 +22,9 @@ public class FPSController : MonoBehaviour {
     // Set the completed message to false, set the high score key, and get the high score
     void Start()
     {
-       // levelCompletedMessage.SetActive(false);
+        levelCompletedMessage.SetActive(false);
         GetHighScore();
+        TriggerWin();
     }
 
     // Update the player's score
@@ -54,18 +56,26 @@ public class FPSController : MonoBehaviour {
     // Triggers the level won message
     public void TriggerWin()
     {
+        UnlockMouse();
         UpdateHighScore();
         levelCompletedMessage.SetActive(true);
     }
 
     public void TriggerLoss()
     {
+        UnlockMouse();
         levelCompletedMessage.SetActive(true);
+        winLoseMessageText.text = loseMessage;
     }
 
     // Loads the next level
     public void Restart()
     {
         SceneManager.LoadScene(levelName);
+    }
+
+    public void UnlockMouse()
+    {
+        Cursor.lockState = CursorLockMode.None;
     }
 }
