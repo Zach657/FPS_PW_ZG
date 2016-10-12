@@ -7,8 +7,12 @@ using System.Collections;
  * This class controls the enemy interactions with the environment, including interactions with the player
 */ 
 
+<<<<<<< HEAD:Assets/Scripts/EnemyScript.cs
 public class EnemyScript : MonoBehaviour {
 	//used to set the health an enemy has
+=======
+public class EnemyController : MonoBehaviour {
+>>>>>>> 20a00d06aedf8c4b0bcb8b711e830c3cacffaf72:Assets/Scripts/EnemyController.cs
 	[SerializeField] private int health = 1;
 
 	//default x and z velocity
