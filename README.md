@@ -2,11 +2,14 @@
 The best FPS of this generation
 
 ## Instructions:
-* Use the "W", "A", "S", "D", & space bar keys to control the movement of your character
-* Find the exit of the maze, which has a red light in front of it, while avoiding or killing the enemy androids to win the level!
+* Use the "W", "A", "S", "D", keys to control the movement of your character
+* Press space to jump
+* Click to shoot
+* Find the exit of the maze, which has a red light in front of it, while avoiding or killing the enemies to win the level!
 
 ## Features:
-* Detailed character and enemy androids
+* Detailed character and enemies
+* Enemies that react to the player
 * Intricate maze
 
 ## Known bugs:
@@ -15,4 +18,4 @@ The best FPS of this generation
 * Pixabay.com
 * Unity Asset Store
 
-###  (C) Zach Greenwell & Peter Wages 2016
+###  (C) James Greenwell & Peter Wages 2016
