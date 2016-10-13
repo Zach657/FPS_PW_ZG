@@ -1,9 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-/*
- * @author Peter Wages
-*/
+/** 
+ * Copyright (C) 2016 - Peter Wages
+ **/
 
 public class FPSInput : MonoBehaviour
 {

@@ -1,10 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-/*
- * @author Peter Wages
- * Stolen from Shannons class exercise and sold on the black market
-*/
+/** 
+ * Copyright (C) 2016 - Peter Wages
+ **/
 
 public class MouseLook : MonoBehaviour {
 

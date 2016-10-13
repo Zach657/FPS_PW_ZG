@@ -1,10 +1,17 @@
-﻿using UnityEngine;
+﻿/** 
+ * Copyright (C) 2016 - James Greenwell
+ **/
+
+using UnityEngine;
 using System.Collections;
 
 public class EnemyController : MonoBehaviour {
 
 	//used to set the health an enemy has
-	[SerializeField] private int health = 1;
+	[SerializeField] private int health = 2;
+
+	//determines the number of points the enemy is worth
+	private int points = 50;
 
 	//default x and z velocity
 	[SerializeField] private float xVel = 0;
@@ -32,16 +39,26 @@ public class EnemyController : MonoBehaviour {
 	//used to save patroling angle
 	private float angleBeforeEngage;
 
-	// Use this for initialization
+	//access to the bullet prefab
+	[SerializeField] GameObject bulletPrefab;
+
+	//controls the rate at which bullets are fired
+	private float fireRate = .5f;
+
+	// Used for initialization
 	void Start () {
 		adjX = Mathf.Abs (xVel);
 		adjZ = Mathf.Abs (zVel);
-		angleBeforeEngage = this.transform.rotation.y;
+		angleBeforeEngage = this.transform.eulerAngles.y;
 	}
 
-	// Responsible for enemy movement
+	// Responsible for enemy movement and interaction
 	void FixedUpdate () {
 		SearchForPlayer ();
+		Patrol ();
+	}
+
+	void Patrol(){
 		if (!firing) {
 			if (!rotating) {
 				Vector3 updatePos = this.transform.position;
@@ -76,32 +93,42 @@ public class EnemyController : MonoBehaviour {
 			}
 		}
 	}
+
 	void OnCollisionEnter(Collision coll){
 		GameObject collidedWith = coll.gameObject;
 		// This determines whether or not the enemy was hit by a bullet
 		if (collidedWith.tag == "Bullet") {
+			Destroy (collidedWith);
 			health = health - 1;
 			if (health == 0) {
-
+				FPSController controller = FindObjectOfType<FPSController>();
+				controller.UpdateScore (points);
+				Destroy (gameObject);
 			}
 		}
+		Debug.Log ("hit");
 	}
 	//Fires a bullet in the direction the enemy is facing
 	void FireWeapon(){
-
+		GameObject bulletObject = Instantiate (bulletPrefab) as GameObject;
+		Vector3 bulletStart = this.transform.position + this.transform.forward*1f;
+		bulletStart.y = 1.8f;
+		bulletObject.transform.position = bulletStart;
+		bulletObject.GetComponent<BulletTrajectory>().SetTrajectory (this.transform.forward);
 	}
 
 	void SearchForPlayer(){
 		if (IsInLOS()) {
-			angleBeforeEngage = this.transform.rotation.y;
-			Vector3 lookAtPos = new Vector3(playerT.position.x, this.transform.position.y, playerT.position.z);
-			transform.LookAt (lookAtPos);
 			if (!firing) {
-				//InvokeRepeating();
+				angleBeforeEngage = this.transform.eulerAngles.y;
+				Debug.Log (angleBeforeEngage);
+				InvokeRepeating ("FireWeapon", .1f, fireRate);
 				firing = true;
 			}
+			Vector3 lookAtPos = new Vector3(playerT.position.x, this.transform.position.y, playerT.position.z);
+			transform.LookAt (lookAtPos);
 		}  else if(firing){
-			this.transform.rotation = Quaternion.Euler(this.transform.rotation.x,angleBeforeEngage,this.transform.rotation.z);
+			this.transform.eulerAngles = new Vector3(this.transform.rotation.x,angleBeforeEngage,this.transform.rotation.z);
 			firing = false;
 			CancelInvoke ();
 		}
@@ -125,11 +152,11 @@ public class EnemyController : MonoBehaviour {
 	}
 
 	private bool IsInFOV(){
-		Vector3 directionToPlayer = playerT.position - transform.position; // represents the direction from the enemy to the player    
-		Debug.DrawLine(transform.position, playerT.position, Color.magenta); // a line drawn in the Scene window equivalent to directionToPlayer
+		Vector3 directionToPlayer = playerT.position - transform.position;  //Direction to player
+		Debug.DrawLine(transform.position, playerT.position, Color.magenta); //draws a line to the player from the enemy
 
-		Vector3 lineOfSight = this.transform.forward; // the centre of the enemy's field of view, the direction of looking directly ahead
-		Debug.DrawLine(transform.position, this.transform.forward, Color.yellow); // a line drawn in the Scene window equivalent to the enemy's field of view centre
+		Vector3 lineOfSight = this.transform.forward; // the center of the enemy's field of view
+		Debug.DrawLine(transform.position, this.transform.forward, Color.yellow); // draws line to represent center of FOV
 
 		// calculate the angle formed between the player's position and the centre of the enemy's line of sight
 		float angle = Vector3.Angle(directionToPlayer, lineOfSight);

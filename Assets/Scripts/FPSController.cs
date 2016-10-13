@@ -6,6 +6,7 @@ using UnityEngine.UI;
 /** 
  * Copyright (C) 2016 - Peter S. Wages
  **/
+
 public class FPSController : MonoBehaviour {
 
     [SerializeField]
@@ -24,7 +25,7 @@ public class FPSController : MonoBehaviour {
     {
         levelCompletedMessage.SetActive(false);
         GetHighScore();
-        TriggerWin();
+        //TriggerWin();
     }
 
     // Update the player's score
@@ -64,6 +65,7 @@ public class FPSController : MonoBehaviour {
     public void TriggerLoss()
     {
         UnlockMouse();
+		UpdateHighScore ();
         levelCompletedMessage.SetActive(true);
         winLoseMessageText.text = loseMessage;
     }

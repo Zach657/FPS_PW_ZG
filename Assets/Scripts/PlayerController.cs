@@ -5,10 +5,11 @@ using UnityEngine.UI;
 /** 
  * Copyright (C) 2016 - Peter S. Wages
  **/
+
 public class PlayerController : MonoBehaviour {
     private int health = 100;
     private int damagePerHit = 25;
-    private int pointsLostPerHit = 100;
+    private int pointsLostPerHit = -50;
     private FPSController controller;
     [SerializeField]
     private Slider healthBar;
@@ -20,13 +21,13 @@ public class PlayerController : MonoBehaviour {
 
     public void PlayerHit()
     {
-        health = health - damagePerHit;
-        healthBar.value = health;
-        controller.UpdateScore(pointsLostPerHit);
-        if (health <= 0)
-        {
-            controller.TriggerLoss();
-        }
+		if (health > 0) {
+			health = health - damagePerHit;
+			healthBar.value = health;
+			controller.UpdateScore (pointsLostPerHit);
+		} else {
+			controller.TriggerLoss ();
+		}
     }
 
     void OnCollisionEnter(Collision collision)
@@ -35,6 +36,7 @@ public class PlayerController : MonoBehaviour {
         if (collidedWith.tag == "Bullet")
         {
             PlayerHit();
+			Destroy (collidedWith);
         }
     }
 }
